@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jan  4 11:08:12 2024
+Spyder Editor
 
-@author: wendel.almeida
+This is a temporary script file.
 """
-
 
 import snowflake.connector
 import pandas as pd
@@ -18,21 +17,16 @@ import snowflake.connector.pandas_tools as scpt
 def dt_df():
     # Configurar a janela Tkinter
     root = Tk()
-
+    
     try:
         # Abrir a caixa de diálogo para seleção do arquivo
-        caminho_df = filedialog.askopenfilename(title="Selecione o arquivo Excel", filetypes=[("Arquivos Excel", "*.xlsx;*.xls;*.xlsm")])
+        caminho_df = filedialog.askopenfilename(title="Selecione o arquivo Excel", filetypes=[("Arquivos Excel", "*.xlsx;*.xls")])
 
         # Fechar a janela Tkinter após a seleção do arquivo
         root.destroy()
-
-        # Verificar se o usuário cancelou a seleção
-        if not caminho_df:
-            print("Seleção de arquivo cancelada.")
-            return None
-
+        
         # Ler o arquivo Excel
-        df = pd.read_excel(caminho_df, skiprows=2)
+        df = pd.read_excel(caminho_df,skiprows=1)
 
         # Exibir os dados
         print("Lendo os dados do arquivo:")
@@ -47,18 +41,16 @@ def dt_df():
 # Chamar a função
 df = dt_df()
 
-
-colunas=['Loja', 'Região', 'Regional', 'Porte']
-
-df = df[colunas]
-
 df = df.rename(columns={
-    'Loja':'LOJA',
-    'Região':'REGIAO',
-    'Regional':'REGIONAL',
-    'Porte':'PORTE'
+    'rk' : 'RK',
+    'Cluster Lojas':'CLUSTER_LOJAS',
+    'Sigla':'SIGLA'
     })
 
+
+df['RK'] = df['RK'].astype(str)
+df['CLUSTER_LOJAS'] = df['CLUSTER_LOJAS'].astype(str)
+df['SIGLA'] = df['SIGLA'].astype(str)
 
 try:
     conn = snowflake.connector.connect(
@@ -76,7 +68,7 @@ try:
 
     cursor = conn.cursor()
 
-    nome_tabela = 'TB_REGIONAIS'
+    nome_tabela = 'TB_CLUSTER'
     
     print('deletando dados')
     delete_query = f'DELETE FROM GENTE_GESTAO.DB_INFORH.{nome_tabela}'
@@ -115,6 +107,3 @@ except snowflake.connector.errors.DatabaseError as e:
 finally:
     if conn:
         conn.close()    
-
-
-
