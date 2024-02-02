@@ -54,11 +54,11 @@ df['SIGLA'] = df['SIGLA'].astype(str)
 
 try:
     conn = snowflake.connector.connect(
-        user='wendel.almeida@tokstok.com.br',
-        account='opa61392.us-east-1',
-        warehouse='GENTE_GESTAO_WH',
-        database='GENTE_GESTAO',
-        schema='DB_INFORH',
+        user='####',
+        account='####',
+        warehouse='####',
+        database='####',
+        schema='####',
         authenticator='externalbrowser'
     )
     
