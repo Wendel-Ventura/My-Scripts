@@ -44,13 +44,13 @@ df = dt_df()
 df = df.rename(columns={
     'rk' : 'RK',
     'Cluster Lojas':'CLUSTER_LOJAS',
-    'Sigla':'SIGLAS'
+    'Sigla':'SIGLA'
     })
 
 
 df['RK'] = df['RK'].astype(str)
 df['CLUSTER_LOJAS'] = df['CLUSTER_LOJAS'].astype(str)
-df['SIGLAS'] = df['SIGLAS'].astype(str)
+df['SIGLA'] = df['SIGLA'].astype(str)
 
 try:
     conn = snowflake.connector.connect(
