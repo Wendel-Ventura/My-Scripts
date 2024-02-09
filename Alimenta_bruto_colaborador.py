@@ -212,11 +212,11 @@ for col6 in colunas_txt:
     
 try:
     conn = snowflake.connector.connect(
-        user='wendel.almeida@tokstok.com.br',
-        account='opa61392.us-east-1',
-        warehouse='GENTE_GESTAO_WH',
-        database='GENTE_GESTAO',
-        schema='DB_RH',
+        user='#####',
+        account='####',
+        warehouse='####',
+        database='####',
+        schema='####',
         authenticator='externalbrowser'
     )
     
